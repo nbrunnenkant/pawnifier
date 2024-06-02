@@ -16,6 +16,7 @@
         {
           buildInputs = [
             pkgs.go
+            pkgs.nodejs_22
           ];
         };
   };
