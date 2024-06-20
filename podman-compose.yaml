@@ -1,0 +1,13 @@
+services:
+  db:
+    container_name: pawnifier_db
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+      MARIADB_USER: test
+      MARIADB_PASSWORD: example
+      MARIADB_DATABASE: pawnifier
+    ports:
+      - "3306:3306"
+
