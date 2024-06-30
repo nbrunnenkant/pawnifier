@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	"github.com/go-sql-driver/mysql"
 )
@@ -16,13 +17,35 @@ func (handler *DbHandler) InsertApiKey(apiKey string) error {
 	return err
 }
 
+func (handler *DbHandler) GetApiKeys() []string {
+	rows, err := handler.db.Query("select api_key from api_keys")
+	apiKeys := make([]string, 0)
+
+	if err != nil {
+		log.Println("Could not retrieve api-keys", err)
+		return apiKeys
+	}
+
+	for {
+		if !rows.Next() {
+			break
+		}
+
+		var apiKey string
+		rows.Scan(&apiKey)
+		apiKeys = append(apiKeys, apiKey)
+	}
+
+	return apiKeys
+}
+
 func NewHandler() *DbHandler {
 	cfg := mysql.Config{
-		User:                 "test",
-		Passwd:               "example",
+		User:                 os.Getenv("DB_USER"),
+		Passwd:               os.Getenv("DB_PW"),
+		DBName:               os.Getenv("DB_NAME"),
 		Net:                  "tcp",
 		Addr:                 "127.0.0.1:3306",
-		DBName:               "pawnifier",
 		AllowNativePasswords: true,
 	}
 
