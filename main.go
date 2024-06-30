@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/joho/godotenv"
 	"github.com/nbrunnenkant/pawnifier/server"
 	"github.com/nbrunnenkant/pawnifier/simplelogin"
@@ -13,7 +15,7 @@ type MailProvider interface {
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	providers := make([]MailProvider, 0)
