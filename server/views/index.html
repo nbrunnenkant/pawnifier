@@ -13,18 +13,12 @@
 
 <body>
   <div class="w-screen h-screen p-4">
-    <div class="grid grid-cols-3 gap-4">
-      {{ range .Mails }}
-
-      <div class="card bg-base-100 shadow-xl">
-        <div class="card-body">
-          <h3 class="card-title">
-            {{ . }}
-          </h3>
-        </div>
-      </div>
-      {{ end }}
-    </div>
+    {{if .Email}}
+    {{ .Email }}
+    {{else}}
+    <a href="https://app.simplelogin.io/oauth2/authorize?response_type=code&client_id=pawnifier-rvvtvfkzyf&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Flogin&scope=profile&state=STATE"
+      class="btn btn-primary"> Login </a>
+    {{end}}
   </div>
 </body>
 
